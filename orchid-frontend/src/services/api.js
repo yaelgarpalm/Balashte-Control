@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const api = axios.create({ baseURL: '/api', timeout: 15000 })
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL || '/api',
+    timeout: 15000,
+})
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('orchid_token')
@@ -61,20 +64,20 @@ export const proveedoresAPI = {
 export const categoriasAPI = {
     getAll: () => api.get('/categorias'),
     crear: (data) => api.post('/categorias', data),
-    actualizar: (id, data) => api.put(`/categorias/${id}`, data),
+    actualizar: (id) => api.put(`/categorias/${id}`, data),
     eliminar: (id) => api.delete(`/categorias/${id}`),
 }
 export const usuariosAPI = {
     getAll: () => api.get('/usuarios'),
     crear: (data) => api.post('/usuarios', data),
-    actualizar: (id, data) => api.put(`/usuarios/${id}`, data),
+    actualizar: (id, data) => api.put(`/usuarios/${id}`),
     eliminar: (id) => api.delete(`/usuarios/${id}`),
     roles: () => api.get('/roles'),
 }
 export const beneficiosAPI = {
     getAll: () => api.get('/beneficios'),
     crear: (data) => api.post('/beneficios', data),
-    actualizar: (id, data) => api.put(`/beneficios/${id}`, data),
+    actualizar: (id) => api.put(`/beneficios/${id}`, data),
     eliminar: (id) => api.delete(`/beneficios/${id}`),
     getAsignaciones: (type, id) => api.get(`/beneficios/asignaciones/${type}/${id}`),
     asignar: (data) => api.post('/beneficios/asignar', data),
